@@ -56,22 +56,35 @@ jobs:
             libxcb-keysyms1 \
             libxcb-randr0 \
             libxcb-render-util0 \
-            libxcb-shape0
+            libxcb-shape0 \
+            upx
+
+      - name: Install UPX (macOS)
+        if: matrix.os == 'macos-latest'
+        run: brew install upx
+
+      - name: Install UPX (Windows)
+        if: matrix.os == 'windows-latest'
+        run: choco install upx
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy sounddevice pyqtgraph PyQt6 scipy pyinstaller
+          pip install numpy sounddevice pyqtgraph PyQt6 pyinstaller
 
       - name: Build with PyInstaller
         run: |
           pyinstaller --clean --noconfirm rt_wav_sgram.spec
 
-      - name: Create archive (macOS)
+      - name: Sign and create archive (macOS)
         if: matrix.os == 'macos-latest'
         run: |
           cd dist
           if [ -d "rt-waveform-spectrogram.app" ]; then
+            # Ad-hoc sign the app to help with Gatekeeper
+            codesign --force --deep --sign - rt-waveform-spectrogram.app
+            # Remove quarantine attribute
+            xattr -cr rt-waveform-spectrogram.app
             zip -r rt-waveform-spectrogram-macos.zip rt-waveform-spectrogram.app
           elif [ -d "rt-waveform-spectrogram" ]; then
             zip -r rt-waveform-spectrogram-macos.zip rt-waveform-spectrogram

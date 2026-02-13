@@ -21,7 +21,8 @@ Or browse all releases: [Releases](https://github.com/phoneticscience/rt-wavefor
 **macOS:**
 1. Download and unzip `rt-waveform-spectrogram-macos.zip`
 2. Move `rt-waveform-spectrogram.app` to Applications (optional)
-3. Double-click to run (you may need to right-click > Open the first time due to Gatekeeper)
+3. **First launch:** Right-click (or Control-click) the app → select "Open" → click "Open" in the dialog
+   - This is required because the app is not notarized with Apple. You only need to do this once.
 
 **Windows:**
 1. Download and unzip `rt-waveform-spectrogram-windows.zip`

@@ -9,10 +9,7 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
 block_cipher = None
 
-# Collect all scipy.fft submodules (needed for FFT operations)
-scipy_hiddenimports = collect_submodules('scipy.fft')
-
-# Collect PyQt6 data files
+# Collect PyQt6 data files (minimal - only what we need)
 pyqt6_datas = collect_data_files('PyQt6', include_py_files=False)
 
 a = Analysis(
@@ -21,16 +18,12 @@ a = Analysis(
     binaries=[],
     datas=pyqt6_datas,
     hiddenimports=[
-        # scipy FFT modules
-        'scipy.fft',
-        'scipy.fft._pocketfft',
-        'scipy.fft._pocketfft.pypocketfft',
-        *scipy_hiddenimports,
-        # numpy modules
+        # numpy modules (using numpy.fft instead of scipy.fft)
         'numpy',
+        'numpy.fft',
         'numpy.core._methods',
         'numpy.lib.format',
-        # PyQt6 modules
+        # PyQt6 modules (only what we need)
         'PyQt6.QtWidgets',
         'PyQt6.QtCore',
         'PyQt6.QtGui',
@@ -54,6 +47,46 @@ a = Analysis(
         'IPython',
         'jupyter',
         'notebook',
+        # Exclude unused PyQt6 modules (major size savings)
+        'PyQt6.QtWebEngine',
+        'PyQt6.QtWebEngineCore',
+        'PyQt6.QtWebEngineWidgets',
+        'PyQt6.QtWebChannel',
+        'PyQt6.QtQuick',
+        'PyQt6.QtQuick3D',
+        'PyQt6.QtQuickWidgets',
+        'PyQt6.QtQml',
+        'PyQt6.Qt3DCore',
+        'PyQt6.Qt3DRender',
+        'PyQt6.Qt3DInput',
+        'PyQt6.Qt3DLogic',
+        'PyQt6.Qt3DExtras',
+        'PyQt6.Qt3DAnimation',
+        'PyQt6.QtBluetooth',
+        'PyQt6.QtNfc',
+        'PyQt6.QtPositioning',
+        'PyQt6.QtLocation',
+        'PyQt6.QtMultimedia',
+        'PyQt6.QtMultimediaWidgets',
+        'PyQt6.QtSensors',
+        'PyQt6.QtSerialPort',
+        'PyQt6.QtSql',
+        'PyQt6.QtTest',
+        'PyQt6.QtXml',
+        'PyQt6.QtDesigner',
+        'PyQt6.QtHelp',
+        'PyQt6.QtPdf',
+        'PyQt6.QtPdfWidgets',
+        'PyQt6.QtCharts',
+        'PyQt6.QtDataVisualization',
+        'PyQt6.QtNetworkAuth',
+        'PyQt6.QtRemoteObjects',
+        'PyQt6.QtTextToSpeech',
+        'PyQt6.QtSvgWidgets',
+        # Exclude scipy (we use numpy.fft fallback)
+        'scipy',
+        'scipy.fft',
+        'scipy.fft._pocketfft',
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
@@ -74,12 +107,12 @@ if sys.platform == 'darwin':
         name='rt-waveform-spectrogram',
         debug=False,
         bootloader_ignore_signals=False,
-        strip=False,
+        strip=True,  # Strip debug symbols
         upx=True,
         console=False,  # No console window
         disable_windowed_traceback=False,
         argv_emulation=False,
-        target_arch=None,
+        target_arch='arm64',  # Single architecture for smaller bundle
         codesign_identity=None,
         entitlements_file=None,
     )
