@@ -37,6 +37,7 @@ Or browse all releases: [Releases](https://github.com/phoneticscience/rt-wavefor
 ```bash
 # from project root (Python 3.14+)
 uv sync   # or: pip install -r requirements.txt
+source .venv/bin/activate  # activate uv environment
 python src/rt_wav_sgram.py
 ```
 
