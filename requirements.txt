@@ -1,0 +1,17 @@
+cffi==2.0.0
+colorama==0.4.6
+iniconfig==2.3.0
+numpy==2.4.2
+packaging==26.0
+pluggy==1.6.0
+pycparser==3.0
+pygments==2.19.2
+pyqt6==6.10.2
+pyqt6-qt6==6.10.2
+pyqt6-sip==13.11.0
+pyqtgraph==0.14.0
+pytest==9.0.2
+pytest-qt==4.5.0
+scipy==1.17.0
+sounddevice==0.5.5
+typing-extensions==4.15.0

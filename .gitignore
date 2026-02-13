@@ -1,0 +1,30 @@
+# system, cache
+.DS_Store
+*~
+.claude
+
+# Python
+.venv
+__pycache__
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+
+# testing, coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# type checkers, linters
+.mypy_cache/
+.ruff_cache/
+
+# PyInstaller
+build/
+dist/
+
+# local env
+.env
+.env.*
+!.env.example
