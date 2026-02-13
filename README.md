@@ -1,6 +1,6 @@
 # Realtime Waveform + Spectrogram
 
-![Realtime Waveform + Spectrogram](assets/main.png)
+![Realtime Waveform + Spectrogram](assets/demo.gif)
 
 Real-time audio visualization: waveform and spectrogram with configurable display and stream settings (sample rate, FFT, colormap, dB range, etc.).
 
