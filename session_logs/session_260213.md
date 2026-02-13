@@ -127,3 +127,17 @@
 
 ## Result
 App runs smoothly with Praat-like spectrogram visualization, adjustable parameters, stable performance, comprehensive tests, and cross-platform automated builds.
+
+---
+
+## TODO (2026-02-14)
+
+### macOS Gatekeeper Issue
+- **Problem**: Ad-hoc code signing (`codesign --force --deep --sign -`) is not sufficient for macOS Gatekeeper
+- **Symptom**: Even right-click → Open doesn't work; macOS still blocks the app
+- **Potential solutions**:
+  1. Apple Developer Program ($99/year) for proper signing + notarization
+  2. Instruct users to run `xattr -cr /path/to/app` in Terminal before opening
+  3. Distribute via Homebrew Cask (auto-handles quarantine)
+  4. Use `--osx-bundle-identifier` and proper entitlements in PyInstaller
+- **Workaround for users**: Run in Terminal: `xattr -cr /Applications/rt-waveform-spectrogram.app` then open
